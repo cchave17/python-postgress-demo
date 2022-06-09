@@ -1,2 +1,1 @@
-# python-postgress-demo
-NUCAMP WEEK 2
+# NUCAMP WEEK 2

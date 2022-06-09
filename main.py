@@ -1,0 +1,1 @@
+# cat company.sql | docker exec -i pg_container psql
