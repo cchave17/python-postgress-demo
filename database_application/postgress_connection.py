@@ -60,10 +60,3 @@ def execute_pg_sql(sql, parameter, select=True):
         print(e)
         return "problem connection with DataBase "
 
-
-def selecting_shit():
-    sql = "SELECT * FROM Customers;"
-    wtf = execute_pg_sql(sql,None,True)
-    print(wtf)
-
-selecting_shit()
