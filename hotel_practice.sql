@@ -23,7 +23,7 @@ SET default_with_oids = false;
 
 
 
-create table Guest(
+create table Guests(
 	phone_number varchar(10) primary key ,
     name varchar(50) not null,
     address varchar(100) not null,
@@ -34,7 +34,7 @@ create table Guest(
 
 
 
-create table Reservation(
+create table Reservations(
 	reservation_id SERIAL primary key,
     guest_phone_number varchar(10),
     start_date DATE not null,
@@ -52,7 +52,7 @@ create table Reservation_Room(
 
 
 
-create table Room(
+create table Rooms(
 	room_number int primary key,
     type_id int not null,
     standard_cap int not null,
@@ -61,10 +61,10 @@ create table Room(
     ADA varchar(3) not null
 );
 
-create table Type(
+create table Types(
 	type_id int primary key not null,
-    TypeName varchar(20) not null,
-    BasePrice Decimal(5,2) not null,
+    type_name varchar(20) not null,
+    base_price Decimal(5,2) not null,
     additional_cost_per_adult Decimal(4,2)
 );
 
@@ -80,25 +80,25 @@ amenities_id int,
 primary key (room_number, amenities_id)
 );
 
-ALTER TABLE Reservation
+ALTER TABLE Reservations
 ADD CONSTRAINT fk_reservations_guest
 FOREIGN KEY (guest_phone_number) 
-REFERENCES Guest(phone_number);
+REFERENCES Guests(phone_number);
     
 ALTER TABLE Reservation_Room
 ADD CONSTRAINT fk_reservation_room_reservation
 FOREIGN KEY (reservation_id)
-REFERENCES Reservation(reservation_id);
+REFERENCES Reservations(reservation_id);
 
 ALTER TABLE Reservation_Room    
 ADD CONSTRAINT fk_reservation_room_room
 FOREIGN KEY(room_number) 
-REFERENCES Room(room_number);
+REFERENCES Rooms(room_number);
     
-ALTER TABLE Room
+ALTER TABLE Rooms
 ADD CONSTRAINT fk_room_type
 FOREIGN KEY (type_id) 
-REFERENCES type(type_id);
+REFERENCES types(type_id);
     
 ALTER TABLE Room_Amenities
 ADD CONSTRAINT fk_room_amenities_amenities
@@ -108,10 +108,10 @@ REFERENCES Amenities(amenities_id);
 ALTER TABLE Room_Amenities
 ADD CONSTRAINT fk_room_amenities_room
 FOREIGN KEY(room_number) 
-REFERENCES Room(room_number);
+REFERENCES Rooms(room_number);
         
 
-insert into guest (phone_number, Name, address, state, city, zip_code) values
+insert into guests(phone_number, Name, address, state, city, zip_code) values
 	('6127327432', 'Carlos instructor', '39 5th ave S', 'MN', 'Minneapolis', '55269'), 
     ('2915530508', 'Mack Simmer', '379 Old Shore Street', 'iA', 'Council Bluffs', '51501'),
     ('4782779632', 'Bettyann Seery', '750 Wintergreen Dr', 'AK', 'Wasilla', '99654'),    					
@@ -131,12 +131,12 @@ insert into Amenities (amenities_id, name, additional_cost) values
     ('3', 'Jacuzzi', '25.00'),
     ('4','Oven',null);
     
-insert into Type(type_id, TypeName, BasePrice, additional_cost_per_adult) values
+insert into Types(type_id, type_name, base_price, additional_cost_per_adult) values
 	('1','Single', '149.99', null),
     ('2','Double', '179.99', '10.00'),
 	('3','suite', '399.99', '20.00');
 
-insert into Room(room_number, type_id, standard_cap, max_cap, ADA) values
+insert into Rooms(room_number, type_id, standard_cap, max_cap, ADA) values
 	('201', 2, '2','4','No'), 
     ('202', 2, '2','4','Yes'),
     ('203', 2, '2','4','No'),
@@ -157,7 +157,7 @@ insert into Room(room_number, type_id, standard_cap, max_cap, ADA) values
     ('402', 3, '3','8','Yes');
 
     
-insert into reservation(reservation_id,guest_phone_number,start_date,end_date,adults,children) values
+insert into reservations(reservation_id,guest_phone_number,start_date,end_date,adults,children) values
 	('1',2915530508, '20230202', '20230204', '1','0'),
     ('2',4782779632, '20230205', '20230210', '2	','1'),
     ('3',3084940198, '20230222', '20230224', '2','0'),

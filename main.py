@@ -1,3 +1,3 @@
-# cat hotel_demo.sql | docker exec -i pg_container psql
-# cat company.sql | docker exec -i pg_container psql
-# cat hotel_practice.sql | docker exec -i pg_container psql
+from check_assignment.app import run_app
+
+run_app()
